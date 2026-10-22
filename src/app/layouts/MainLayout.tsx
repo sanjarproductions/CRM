@@ -2,8 +2,6 @@ import { Outlet } from "react-router-dom";
 
 import { Sidebar } from "../../widgets/sidebar";
 
-// import { Header } from "../../widgets/header"
-
 const MainLayout = () => {
   return (
     <div style={{ display: "flex" }}>

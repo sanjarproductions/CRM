@@ -67,10 +67,15 @@ const RegisterPage = () => {
                 <p className={styles.errorMessage}>{errorMessage}</p>
               )}
               <div
-                style={{ display: "flex", flexDirection: "row", gap: "5px" }}
+                style={{ display: "flex", flexDirection: "column", gap: "5px" }}
               >
                 <label htmlFor="firstname">
-                  First name
+                  <div>
+                    First name
+                    <small style={{ fontSize: "12px" }}>
+                      (Latin or Cyrillic)
+                    </small>
+                  </div>
                   <input
                     id="firstname"
                     type="text"
@@ -80,15 +85,19 @@ const RegisterPage = () => {
                     pattern="[ \p{Script=Latin}\p{Script=Cyrillic} ]+"
                   />
                 </label>{" "}
-                <small style={{ fontSize: "12px" }}>(Latin or Cyrillic)</small>
               </div>
             </div>
             <div>
               <div
-                style={{ display: "flex", flexDirection: "row", gap: "5px" }}
+                style={{ display: "flex", flexDirection: "column", gap: "5px" }}
               >
                 <label htmlFor="lastname">
-                  Last name
+                  <div>
+                    Last name
+                    <small style={{ fontSize: "12px" }}>
+                      (Latin or Cyrillic)
+                    </small>
+                  </div>
                   <input
                     id="lastname"
                     type="text"
@@ -98,7 +107,6 @@ const RegisterPage = () => {
                     pattern="[ \p{Script=Latin}\p{Script=Cyrillic} ]+"
                   />
                 </label>{" "}
-                <small style={{ fontSize: "12px" }}>(Latin or Cyrillic)</small>
               </div>
             </div>
             <div>

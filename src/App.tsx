@@ -35,53 +35,20 @@ function App() {
           element={
             <PrivateRoute>
               {" "}
-              <MainLayout />{" "}
+              <MainLayout />
             </PrivateRoute>
           }
         >
-          <Route
-            path="/"
-            element={
-              <PrivateRoute>
-                {" "}
-                <Dashboard />{" "}
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/customers"
-            element={
-              <PrivateRoute>
-                {" "}
-                <CustomersPage />{" "}
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/deals"
-            element={
-              <PrivateRoute>
-                {" "}
-                <DealsPage />{" "}
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/tasks"
-            element={
-              <PrivateRoute>
-                {" "}
-                <TasksPage />{" "}
-              </PrivateRoute>
-            }
-          />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/customers" element={<CustomersPage />} />
+          <Route path="/deals" element={<DealsPage />} />
+          <Route path="/tasks" element={<TasksPage />} />
         </Route>
         <Route
           path="/login"
           element={
             <PublicRoute>
-              {" "}
-              <LoginPage />{" "}
+              <LoginPage />
             </PublicRoute>
           }
         />
@@ -89,8 +56,7 @@ function App() {
           path="/register"
           element={
             <PublicRoute>
-              {" "}
-              <RegisterPage />{" "}
+              <RegisterPage />
             </PublicRoute>
           }
         />
