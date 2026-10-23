@@ -1,0 +1,36 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 17px 24px;
+    border-bottom: 1px solid #EAEEF4;
+    background: #F6FAFDE5;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.header .create-new {
+    cursor: pointer;
+    background: #514EF3;
+    width: 165px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 500;
+    border: none;
+    border-radius: 70px;
+    margin-right: 20px;
+    transition: 200ms;
+}
+
+.header .create-new:hover {
+    /* transform: scale(1.01); */
+    opacity: 0.9;
+}

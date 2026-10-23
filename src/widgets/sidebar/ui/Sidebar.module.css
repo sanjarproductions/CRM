@@ -1,0 +1,57 @@
+/* .sidebar {} */
+
+.sidebar .something {
+    background: #F6FAFDE5;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #EAEEF4;
+    border-right: 1px solid #EAEEF4;
+    padding-top: 22px;
+    /* max-width: 90px; */
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.sidebar .something-2 {
+    background: #F6FAFDE5;
+    padding-top: 20px;
+    border-right: 1px solid #EAEEF4;
+    /* max-width: 90px; */
+    width: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 16px;
+    height: 86vh;
+}
+
+.sidebar .something-2 .icon-wrapper {
+    /* background: #514EF3; */
+    cursor: pointer;
+    border: 1px solid #EAEEF4;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.sidebar .something-2 .icon-wrapper a {
+    width: 20px;
+    height: 20px;
+    color: #7E92A2;
+}
+
+.sidebar .something-2 a:global(.active) .icon-wrapper {
+    background: #514EF3;
+    border: none;
+}
+
+.sidebar .something-2 a:global(.active) {
+    color: #fff;
+}
