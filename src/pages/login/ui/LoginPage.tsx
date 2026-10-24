@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react";
 
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -13,32 +14,33 @@ const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const login = async (e: FormEvent) => {
-    e.preventDefault();
-
-    setErrorMessage(""); // reset the old error
-    try {
-      const response = await axiosInstance.post("/auth/login", {
-        email,
-        password,
-      });
-
+  const loginMutation = useMutation({
+    mutationFn: (credentials: { email: string; password: string }) =>
+      axiosInstance.post("/auth/login", credentials),
+    onSuccess: (response) => {
       localStorage.setItem("access_token", response.data.access_token);
-      navigate("/"); // redirects to dashboard
-      setEmail("");
-      setPassword("");
-    } catch (error) {
+      navigate("/");
+    },
+    onError: (error) => {
       if (axios.isAxiosError(error)) {
         setErrorMessage(
           error.response?.data?.message || "Something Went Wrong",
         );
+        setEmail("");
+        setPassword("");
       } else {
         setErrorMessage("Something Went Wrong");
       }
-      setEmail("");
-      setPassword("");
-    }
+    },
+  });
+
+  const login = async (e: FormEvent) => {
+    e.preventDefault();
+
+    setErrorMessage(""); // reset the old error
+    loginMutation.mutate({ email, password });
   };
+
   return (
     <div className={styles.background}>
       <div className={styles.main}>
