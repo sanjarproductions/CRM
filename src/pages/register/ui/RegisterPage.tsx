@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react";
 
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -17,34 +18,44 @@ const RegisterPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const register = async (e: FormEvent) => {
+  const registerMutation = useMutation({
+    mutationFn: (credentials: {
+      email: string;
+      password: string;
+      first_name: string;
+      last_name: string;
+    }) => axiosInstance.post("/auth/register", credentials),
+    onSuccess: (response) => {
+      toast.success(`${response.data.message}, please Login`);
+      navigate("/login");
+    },
+    onError: (error) => {
+      if (axios.isAxiosError(error)) {
+        setErrorMessage(
+          error.response?.data?.message || "Something Went Wrong",
+        );
+      } else {
+        setErrorMessage("Something Went Wrong");
+      }
+      setUserPassword("");
+      setUserRepeatPassword("");
+      setUserFirstName("");
+      setUserLastName("");
+      setUserEmail("");
+    },
+  });
+
+  const register = (e: FormEvent) => {
     e.preventDefault();
 
     setErrorMessage("");
     if (userPassword === userRepeatPassword) {
-      try {
-        const response = await axiosInstance.post("/auth/register", {
-          email: userEmail,
-          password: userPassword,
-          first_name: userFirstName,
-          last_name: userLastName,
-        });
-        toast.success(`${response.data.message}, please Login`);
-        navigate("/login");
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          setErrorMessage(
-            error.response?.data?.message || "Something Went Wrong",
-          );
-        } else {
-          setErrorMessage("Something Went Wrong");
-        }
-        setUserPassword("");
-        setUserRepeatPassword("");
-        setUserFirstName("");
-        setUserLastName("");
-        setUserEmail("");
-      }
+      registerMutation.mutate({
+        email: userEmail,
+        password: userPassword,
+        first_name: userFirstName,
+        last_name: userLastName,
+      });
     } else {
       setErrorMessage("The Passwords Don't Match");
       setUserPassword("");
@@ -82,9 +93,9 @@ const RegisterPage = () => {
                     required
                     value={userFirstName}
                     onChange={(e) => setUserFirstName(e.target.value)}
-                    pattern="[ \p{Script=Latin}\p{Script=Cyrillic} ]+"
+                    pattern="[\p{Script=Latin}\p{Script=Cyrillic}]+"
                   />
-                </label>{" "}
+                </label>
               </div>
             </div>
             <div>
@@ -104,9 +115,9 @@ const RegisterPage = () => {
                     required
                     value={userLastName}
                     onChange={(e) => setUserLastName(e.target.value)}
-                    pattern="[ \p{Script=Latin}\p{Script=Cyrillic} ]+"
+                    pattern="[\p{Script=Latin}\p{Script=Cyrillic}]+"
                   />
-                </label>{" "}
+                </label>
               </div>
             </div>
             <div>
