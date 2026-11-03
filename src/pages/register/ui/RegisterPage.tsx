@@ -48,6 +48,7 @@ const RegisterPage = () => {
   const register = (e: FormEvent) => {
     e.preventDefault();
 
+    if (registerMutation.isPending) return;
     setErrorMessage("");
     if (userPassword === userRepeatPassword) {
       registerMutation.mutate({
@@ -60,9 +61,6 @@ const RegisterPage = () => {
       setErrorMessage("The Passwords Don't Match");
       setUserPassword("");
       setUserRepeatPassword("");
-      setUserFirstName("");
-      setUserLastName("");
-      setUserEmail("");
     }
   };
 
@@ -129,7 +127,7 @@ const RegisterPage = () => {
                   required
                   value={userEmail}
                   onChange={(e) => setUserEmail(e.target.value)}
-                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                  pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
                 />
               </label>
             </div>
@@ -162,7 +160,7 @@ const RegisterPage = () => {
           </div>
           <div className={styles.actionsWrapper}>
             <NavLink to={"/login"}>Back</NavLink>
-            <button>Sign up</button>
+            <button disabled={registerMutation.isPending}>Sign up</button>
           </div>
         </form>
       </div>
