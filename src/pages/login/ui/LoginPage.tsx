@@ -34,9 +34,10 @@ const LoginPage = () => {
     },
   });
 
-  const login = async (e: FormEvent) => {
+  const login = (e: FormEvent) => {
     e.preventDefault();
 
+    if (loginMutation.isPending) return;
     setErrorMessage(""); // reset the old error
     loginMutation.mutate({ email, password });
   };
@@ -59,7 +60,7 @@ const LoginPage = () => {
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
-                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                  pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
                 />
               </label>
             </div>
@@ -86,7 +87,7 @@ const LoginPage = () => {
           </div>
           <div className={styles.actionsWrapper}>
             <NavLink to={"/register"}>Sign up</NavLink>
-            <button>Sign in</button>
+            <button disabled={loginMutation.isPending}>Sign in</button>
           </div>
         </form>
       </div>
